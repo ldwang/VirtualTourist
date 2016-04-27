@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		EFDBD1B61CCDD0690060DAE4 /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFDBD1B51CCDD0690060DAE4 /* Config.swift */; };
+		EFDBD1B81CCDD0770060DAE4 /* Pin.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFDBD1B71CCDD0770060DAE4 /* Pin.swift */; };
+		EFDBD1BA1CCDD0840060DAE4 /* Photo.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFDBD1B91CCDD0840060DAE4 /* Photo.swift */; };
+		EFDBD1BC1CCDD0A10060DAE4 /* VTDB.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFDBD1BB1CCDD0A10060DAE4 /* VTDB.swift */; };
+		EFDBD1BE1CCDD0BB0060DAE4 /* VTDB-Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFDBD1BD1CCDD0BB0060DAE4 /* VTDB-Constants.swift */; };
 		EFE0BCA51CC44A890088E964 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFE0BCA41CC44A890088E964 /* AppDelegate.swift */; };
 		EFE0BCA71CC44A890088E964 /* TravelLocationsMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFE0BCA61CC44A890088E964 /* TravelLocationsMapViewController.swift */; };
 		EFE0BCAA1CC44A890088E964 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EFE0BCA81CC44A890088E964 /* Main.storyboard */; };
@@ -35,6 +40,11 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		EFDBD1B51CCDD0690060DAE4 /* Config.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
+		EFDBD1B71CCDD0770060DAE4 /* Pin.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Pin.swift; sourceTree = "<group>"; };
+		EFDBD1B91CCDD0840060DAE4 /* Photo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Photo.swift; sourceTree = "<group>"; };
+		EFDBD1BB1CCDD0A10060DAE4 /* VTDB.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VTDB.swift; sourceTree = "<group>"; };
+		EFDBD1BD1CCDD0BB0060DAE4 /* VTDB-Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "VTDB-Constants.swift"; sourceTree = "<group>"; };
 		EFE0BCA11CC44A890088E964 /* Virtual Tourist.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Virtual Tourist.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		EFE0BCA41CC44A890088E964 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		EFE0BCA61CC44A890088E964 /* TravelLocationsMapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TravelLocationsMapViewController.swift; sourceTree = "<group>"; };
@@ -132,6 +142,11 @@
 		EFE0BCD51CC483F60088E964 /* VTDB */ = {
 			isa = PBXGroup;
 			children = (
+				EFDBD1B51CCDD0690060DAE4 /* Config.swift */,
+				EFDBD1B71CCDD0770060DAE4 /* Pin.swift */,
+				EFDBD1B91CCDD0840060DAE4 /* Photo.swift */,
+				EFDBD1BB1CCDD0A10060DAE4 /* VTDB.swift */,
+				EFDBD1BD1CCDD0BB0060DAE4 /* VTDB-Constants.swift */,
 			);
 			name = VTDB;
 			sourceTree = "<group>";
@@ -267,8 +282,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EFDBD1BA1CCDD0840060DAE4 /* Photo.swift in Sources */,
+				EFDBD1BE1CCDD0BB0060DAE4 /* VTDB-Constants.swift in Sources */,
+				EFDBD1B81CCDD0770060DAE4 /* Pin.swift in Sources */,
 				EFE0BCA71CC44A890088E964 /* TravelLocationsMapViewController.swift in Sources */,
+				EFDBD1B61CCDD0690060DAE4 /* Config.swift in Sources */,
 				EFE0BCAD1CC44A890088E964 /* Virtual_Tourist.xcdatamodeld in Sources */,
+				EFDBD1BC1CCDD0A10060DAE4 /* VTDB.swift in Sources */,
 				EFE0BCA51CC44A890088E964 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -494,6 +514,7 @@
 				EFE0BCCE1CC44A890088E964 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		EFE0BCCF1CC44A890088E964 /* Build configuration list for PBXNativeTarget "Virtual TouristTests" */ = {
 			isa = XCConfigurationList;
@@ -502,6 +523,7 @@
 				EFE0BCD11CC44A890088E964 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		EFE0BCD21CC44A890088E964 /* Build configuration list for PBXNativeTarget "Virtual TouristUITests" */ = {
 			isa = XCConfigurationList;
@@ -510,6 +532,7 @@
 				EFE0BCD41CC44A890088E964 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 
