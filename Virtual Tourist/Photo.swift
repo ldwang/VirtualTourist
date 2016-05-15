@@ -14,9 +14,10 @@ class Photo : NSManagedObject {
     
     struct Keys {
         static let PhotoPath = "photo_path"
+        static let PhotoURL = "photo_url"
     }
     
-    @NSManaged var id: NSNumber
+    @NSManaged var photoURL: String?
     @NSManaged var photoPath: String?
     @NSManaged var pin: Pin?
     
@@ -31,7 +32,7 @@ class Photo : NSManagedObject {
         super.init(entity: entity, insertIntoManagedObjectContext: context)
         
         // Dictionary
-        id = dictionary[VTDB.Keys.ID] as! Int
+        photoURL = dictionary[Keys.PhotoURL] as? String
         photoPath = dictionary[Keys.PhotoPath] as? String
         
     }

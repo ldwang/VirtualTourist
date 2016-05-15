@@ -22,6 +22,8 @@ class TravelLocationsMapViewController: UIViewController, MKMapViewDelegate, NSF
     
     var longPressGestrue = UILongPressGestureRecognizer()
     
+    //var newPin : Pin!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.'
@@ -29,19 +31,32 @@ class TravelLocationsMapViewController: UIViewController, MKMapViewDelegate, NSF
         mapView.delegate = self
         
         self.longPressGestrue.minimumPressDuration = 1.0
-        self.longPressGestrue.addTarget(self, action: #selector(self.addAnnotation(_:)))
+        self.longPressGestrue.addTarget(self, action: #selector(self.addPin(_:)))
         mapView.addGestureRecognizer(longPressGestrue)
         
         restoreMapRegion()
+        
+        
+        // Set the fetchedResultsController.delegate = self
+        fetchedResultsController.delegate = self
         
         // Invoke fetchedResultsController.performFetch(nil) here
         do {
             try fetchedResultsController.performFetch()
         } catch {}
         
-        // Set the fetchedResultsController.delegate = self
-        fetchedResultsController.delegate = self
+        let pins = fetchedResultsController.fetchedObjects! as? [Pin]
         
+        print(pins)
+        
+        for pin in pins! {
+            
+            let annotation = MKPointAnnotation()
+            annotation.coordinate = CLLocationCoordinate2D(latitude: pin.latitude, longitude: pin.longitude)
+            mapView.addAnnotation(annotation)
+
+        }
+        //mapView.addAnnotations(fetchedResultsController.fetchedObjects as! [MKAnnotation])
         
 
         
@@ -67,7 +82,7 @@ class TravelLocationsMapViewController: UIViewController, MKMapViewDelegate, NSF
         
         let fetchRequest = NSFetchRequest(entityName: "Pin")
         
-        fetchRequest.sortDescriptors = [NSSortDescriptor(key: "id", ascending: true)]
+        fetchRequest.sortDescriptors = [NSSortDescriptor(key: "latitude", ascending: true)]
         
         let fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest,
                                                                   managedObjectContext: self.sharedContext,
@@ -98,12 +113,19 @@ class TravelLocationsMapViewController: UIViewController, MKMapViewDelegate, NSF
         }
     }
     
-    func addAnnotation(getstureRecognizer: UIGestureRecognizer) {
+    func addPin(getstureRecognizer: UIGestureRecognizer) {
         let touchPoint = getstureRecognizer.locationInView(mapView)
         let newCoordinates = mapView.convertPoint(touchPoint, toCoordinateFromView: mapView)
         let annotation = MKPointAnnotation()
         annotation.coordinate = newCoordinates
         mapView.addAnnotation(annotation)
+        
+        print(newCoordinates)
+
+        _ = Pin(latitude: newCoordinates.latitude, longitude: newCoordinates.longitude,  context: sharedContext)
+        
+            CoreDataStackManager.sharedInstance().saveContext()
+        
     }
     
     //MARK: MapView delegate implementation
