@@ -8,6 +8,11 @@
 
 import Foundation
 
+//MARK: File Support
+
+private let _documentsDirectoryURL: NSURL = NSFileManager.defaultManager().URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask).first!
+private let _fileURL: NSURL = _documentsDirectoryURL.URLByAppendingPathComponent("VTDB-Context")
+
 //class Config: NSObject, NSCoding {
 //    
 //}

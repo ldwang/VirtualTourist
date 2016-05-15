@@ -16,11 +16,16 @@ extension VTDB {
         static let ApiKey = "b267f3abec7302dabd3dd1f8fc568b72"
         
         //MARK: - URLs
-        let BaseUrl = "https://api.flickr.com/services/rest/"
+        static let BaseUrl = "https://api.flickr.com/services/rest/"
     }
     
     struct Methods {
         static let Search = "flickr.photos.search"
+    }
+    
+    
+    struct NSUserDefaultKey {
+        static let MapRegionKey = "Map Region key"
     }
     
     struct SearchOptions {
@@ -34,5 +39,9 @@ extension VTDB {
         static let LatMax = "90.0"
         static let LonMin = "-180.0"
         static let LonMax = "180.0"
+    }
+    
+    struct Keys {
+        static let ID = "id"
     }
 }
