@@ -22,7 +22,7 @@ class TravelLocationsMapViewController: UIViewController, MKMapViewDelegate, NSF
     
     var longPressGestrue = UILongPressGestureRecognizer()
     
-    //var newPin : Pin!
+    var selectedPin : Pin!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -56,7 +56,6 @@ class TravelLocationsMapViewController: UIViewController, MKMapViewDelegate, NSF
             mapView.addAnnotation(annotation)
 
         }
-        //mapView.addAnnotations(fetchedResultsController.fetchedObjects as! [MKAnnotation])
         
 
         
@@ -114,17 +113,59 @@ class TravelLocationsMapViewController: UIViewController, MKMapViewDelegate, NSF
     }
     
     func addPin(getstureRecognizer: UIGestureRecognizer) {
+        
+        guard !isEditingPin else {
+            return
+        }
+        
         let touchPoint = getstureRecognizer.locationInView(mapView)
         let newCoordinates = mapView.convertPoint(touchPoint, toCoordinateFromView: mapView)
         let annotation = MKPointAnnotation()
-        annotation.coordinate = newCoordinates
-        mapView.addAnnotation(annotation)
         
-        print(newCoordinates)
+        switch getstureRecognizer.state {
+            case .Began:
+                annotation.coordinate = newCoordinates
+                mapView.addAnnotation(annotation)
+                let newPin = Pin(latitude: newCoordinates.latitude, longitude: newCoordinates.longitude,  context: sharedContext)
+                CoreDataStackManager.sharedInstance().saveContext()
+                VTDB.sharedInstance().getPhotosByPin(newPin) {success, error in
+                    if success {
+                       print("getPhotosByPin is successfull!")
+                    } else {
+                        let errorString = error!.localizedDescription
+                        VTDB.sharedInstance().showAlert(self, alertString : errorString)
+                    }
+            }
 
-        _ = Pin(latitude: newCoordinates.latitude, longitude: newCoordinates.longitude,  context: sharedContext)
+            default:
+                return
+        }
         
+    }
+    
+    //MARK: MapView delegate DidSelectAnnotation
+    
+    func mapView(mapView: MKMapView, didSelectAnnotationView view: MKAnnotationView) {
+        let annotation = view.annotation!
+
+        selectedPin = getPinByAnnotation(annotation)
+        
+        if isEditingPin {
+            mapView.removeAnnotation(annotation)
+            sharedContext.deleteObject(selectedPin!)
             CoreDataStackManager.sharedInstance().saveContext()
+ 
+        } else {
+            
+            let vc = self.storyboard!.instantiateViewControllerWithIdentifier("PhotoCollectionViewController") as! PhotoCollectionViewController
+            
+            vc.pin = selectedPin
+            
+            print(vc.pin)
+            
+            self.presentViewController(vc, animated: true, completion: nil)
+        }
+        
         
     }
     
@@ -166,6 +207,26 @@ class TravelLocationsMapViewController: UIViewController, MKMapViewDelegate, NSF
         
         NSUserDefaults.standardUserDefaults().setObject(mapRegiondict, forKey: VTDB.NSUserDefaultKey.MapRegionKey)
     }
+    
+    //Get Pin object by matching the annotation's latitude and longitude
+    func getPinByAnnotation(annotation: MKAnnotation) -> Pin? {
+        
+        let latitude = annotation.coordinate.latitude
+        let longitude = annotation.coordinate.longitude
+        
+        do {
+            try fetchedResultsController.performFetch()
+        } catch {}
 
+        let pins = fetchedResultsController.fetchedObjects! as? [Pin]
+        
+        let pinArray = pins?.filter {
+            $0.latitude == latitude && $0.longitude == longitude
+            }
+        return pinArray![0]
+
+    }
+    
+ 
 }
 

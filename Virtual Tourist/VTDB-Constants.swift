@@ -31,14 +31,15 @@ extension VTDB {
     struct SearchOptions {
         static let Extras = "url_m"
         static let SafeSearch = "1"
-        static let dataFormat = "json"
+        static let DataFormat = "json"
         static let NoJSONCallBack = "1"
-        static let BoundingBoxHalfWidth = "1.0"
-        static let BoundingBoxHalfHeight = "1.0"
-        static let LatMin = "-90.0"
-        static let LatMax = "90.0"
-        static let LonMin = "-180.0"
-        static let LonMax = "180.0"
+        static let BoundingBoxHalfWidth = 1.0
+        static let BoundingBoxHalfHeight = 1.0
+        static let PerPage = 21
+        static let LatMin = -90.0
+        static let LatMax = 90.0
+        static let LonMin = -180.0
+        static let LonMax = 180.0
     }
     
     struct Keys {
