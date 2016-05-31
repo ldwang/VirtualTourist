@@ -55,20 +55,22 @@ class PhotoCollectionViewController: UIViewController, MKMapViewDelegate,  UICol
             try fetchedResultsController.performFetch()
         } catch {}
         
+        if pin.photos?.count == 0 {
+            VTDB.sharedInstance().getPhotoURLsByPin(pin) { photoURLs, error in
+                if error == nil {
+                    self.photoURLArray = photoURLs
+                    print(self.photoURLArray)
+                } else {
+                    print(error)
+                }
+            }
+        }
     }
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         
-        VTDB.sharedInstance().getPhotoURLsByPin(pin) { photoURLs, error in
-            if error == error {
-                VTDB.sharedInstance().showAlert(self, alertString: error?.localizedDescription)
-            } else {
-                self.photoURLArray = photoURLs
-                print(photoURLs)
             }
-        }
-    }
     
     @IBAction func OKButtonTouch(sender: AnyObject) {
         
