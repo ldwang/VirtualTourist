@@ -68,7 +68,7 @@ class VTDB : NSObject {
     }
    
  
-    func downloadImageByURL(urlString: String, completionHandler : (imageData: NSData?, error: NSError?) -> Void) -> NSURLSessionDataTask {
+    func taskForGetImage(urlString: String, completionHandler : (imageData: NSData?, error: NSError?) -> Void) -> NSURLSessionDataTask {
         
         let url = NSURL(string: urlString)!
         let request = NSURLRequest(URL: url)

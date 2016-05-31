@@ -23,7 +23,7 @@ extension VTDB {
 
     //MARK: Get Flickr Image URLs by Pin
     
-    func getPhotosByPin(pin: Pin,  completionHandler: (success : Bool, error: NSError?) -> Void ) {
+    func getPhotoURLsByPin(pin: Pin,  completionHandler: (photoURLs : [String], error: NSError?) -> Void ) {
         
         let parameters = [
             "method": Methods.Search,
@@ -33,7 +33,7 @@ extension VTDB {
             "extras": SearchOptions.Extras,
             "format": SearchOptions.DataFormat,
             "per_page": SearchOptions.PerPage,
-            //"page" : pageNum,
+            "page" : pin.currentPage,
             "nojsoncallback": SearchOptions.NoJSONCallBack
         ]
         
@@ -43,33 +43,41 @@ extension VTDB {
             
             if let error = error {
                 print(error)
-                completionHandler(success : false,  error: error)
+                completionHandler(photoURLs : [],  error: error)
             } else {
                 if let photos = result["photos"] as? [String: AnyObject] {
-                    if let pages = photos["pages"] as? Int {
+                    if let totalPages = photos["pages"] as? Int {
                         
-                        var photoURLs: [String] = []
+                        pin.totalPages = totalPages
+                        
+                        dispatch_async(dispatch_get_main_queue()) {
+                            CoreDataStackManager.sharedInstance().saveContext()
+                        }
+                            
+                        var photoURLs : [String] = []
                         
                         if let photoArray = photos["photo"] as? [[String: AnyObject]] {
                             for photo in photoArray {
                                 photoURLs.append(photo["url_m"] as! String)
                             }
-                            completionHandler(success: true, error: nil)
+                            
+                            completionHandler(photoURLs : photoURLs, error: nil)
+                            
                         } else {
                             print("Cannot find key 'photo' in \(result)")
                             let errorObject = NSError(domain: "DomainError", code: 1, userInfo: [NSLocalizedDescriptionKey: "Cannot find key 'photo' in \(result)"])
-                            completionHandler(success: false, error: errorObject)
+                            completionHandler(photoURLs : [], error: errorObject)
                         }
-                        
+                            
                     } else {
                         print("Cannot find key 'pages' in \(result)")
                         let errorObject = NSError(domain: "DomainError", code: 1, userInfo: [NSLocalizedDescriptionKey: "Cannot find key 'pages' in \(result)"])
-                        completionHandler(success: false, error: errorObject)
+                        completionHandler(photoURLs : [], error: errorObject)
                     }
                 } else {
                     print("Cannot find key 'photos' in \(result)")
                     let errorObject = NSError(domain: "DomainError", code: 1, userInfo: [NSLocalizedDescriptionKey: "Cannot find key 'pages' in \(result)"])
-                    completionHandler(success: false, error: errorObject)
+                    completionHandler(photoURLs : [], error: errorObject)
                 }
                 
             }

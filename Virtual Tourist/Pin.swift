@@ -9,13 +9,14 @@
 import Foundation
 import CoreData
 
-//@objc(Pin)
+@objc(Pin)
 
 class Pin : NSManagedObject {
     
     @NSManaged var latitude: Double
     @NSManaged var longitude: Double
-    @NSManaged var pages : Int
+    @NSManaged var totalPages : Int
+    @NSManaged var currentPage : Int
     @NSManaged var photos: [Photo]?
     
     override init(entity: NSEntityDescription, insertIntoManagedObjectContext context: NSManagedObjectContext?) {
@@ -31,7 +32,8 @@ class Pin : NSManagedObject {
         
         self.latitude = latitude
         self.longitude = longitude
-        self.pages = 0
+        self.totalPages = 1
+        self.currentPage = 1
         
     }
     

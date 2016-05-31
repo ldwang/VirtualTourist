@@ -126,17 +126,9 @@ class TravelLocationsMapViewController: UIViewController, MKMapViewDelegate, NSF
             case .Began:
                 annotation.coordinate = newCoordinates
                 mapView.addAnnotation(annotation)
-                let newPin = Pin(latitude: newCoordinates.latitude, longitude: newCoordinates.longitude,  context: sharedContext)
+                let _ = Pin(latitude: newCoordinates.latitude, longitude: newCoordinates.longitude,  context: sharedContext)
+            case .Ended:
                 CoreDataStackManager.sharedInstance().saveContext()
-                VTDB.sharedInstance().getPhotosByPin(newPin) {success, error in
-                    if success {
-                       print("getPhotosByPin is successfull!")
-                    } else {
-                        let errorString = error!.localizedDescription
-                        VTDB.sharedInstance().showAlert(self, alertString : errorString)
-                    }
-            }
-
             default:
                 return
         }

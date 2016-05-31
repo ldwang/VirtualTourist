@@ -21,7 +21,7 @@ class PhotoCollectionViewController: UIViewController, MKMapViewDelegate,  UICol
     
     var pin : Pin!
     
-    var pageNum = 1
+    var photoURLArray : [String] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -57,12 +57,25 @@ class PhotoCollectionViewController: UIViewController, MKMapViewDelegate,  UICol
         
     }
     
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        VTDB.sharedInstance().getPhotoURLsByPin(pin) { photoURLs, error in
+            if error == error {
+                VTDB.sharedInstance().showAlert(self, alertString: error?.localizedDescription)
+            } else {
+                self.photoURLArray = photoURLs
+                print(photoURLs)
+            }
+        }
+    }
+    
     @IBAction func OKButtonTouch(sender: AnyObject) {
         
         self.dismissViewControllerAnimated(true, completion: nil)
     }
     
-    
+    // MARK: - Core Data Convenience. This will be useful for fetching. And for adding and saving objects as well.
     var sharedContext: NSManagedObjectContext {
         return CoreDataStackManager.sharedInstance().managedObjectContext
     }
