@@ -13,12 +13,14 @@ import CoreData
 class Photo : NSManagedObject {
     
     struct Keys {
-        static let PhotoPath = "photo_path"
+        static let ID = "id"
+        static let Title = "title"
         static let PhotoURL = "photo_url"
     }
     
     @NSManaged var photoURL: String?
-    @NSManaged var photoPath: String?
+    @NSManaged var id: Int
+    @NSManaged var title: String?
     @NSManaged var pin: Pin?
     
     override init(entity: NSEntityDescription, insertIntoManagedObjectContext context: NSManagedObjectContext?) {
@@ -33,18 +35,19 @@ class Photo : NSManagedObject {
         
         // Dictionary
         photoURL = dictionary[Keys.PhotoURL] as? String
-        photoPath = dictionary[Keys.PhotoPath] as? String
+        id = (dictionary[Keys.ID] as? Int)!
+        title = dictionary[Keys.Title] as? String
         
     }
     
     var image: UIImage? {
         
         get {
-            return VTDB.Caches.imageCache.imageWithIdentifier(photoPath)
+            return VTDB.Caches.imageCache.imageWithIdentifier(photoURL)
         }
         
         set {
-            VTDB.Caches.imageCache.storeImage(newValue, withIdentifier: photoPath!)
+            VTDB.Caches.imageCache.storeImage(newValue, withIdentifier: photoURL!)
         }
     }
 

@@ -55,22 +55,21 @@ class PhotoCollectionViewController: UIViewController, MKMapViewDelegate,  UICol
             try fetchedResultsController.performFetch()
         } catch {}
         
-        if pin.photos?.count == 0 {
-            VTDB.sharedInstance().getPhotoURLsByPin(pin) { photoURLs, error in
-                if error == nil {
-                    self.photoURLArray = photoURLs
-                    print(self.photoURLArray)
-                } else {
-                    print(error)
-                }
             }
-        }
-    }
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         
+        if pin.photos!.isEmpty {
+            VTDB.sharedInstance().getPhotosByPin(pin) { result, error in
+                if let error = error {
+                    print(error)
+                } else {
+                    print(result)
+                }
             }
+        }
+    }
     
     @IBAction func OKButtonTouch(sender: AnyObject) {
         
@@ -108,11 +107,15 @@ class PhotoCollectionViewController: UIViewController, MKMapViewDelegate,  UICol
     
     
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 21
+        let sectionInfo = self.fetchedResultsController.sections![section]
+        return sectionInfo.numberOfObjects
     }
     
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier("Photo", forIndexPath: indexPath)
+        
+        //configureCell(cell)
+        
         return cell
     }
 
