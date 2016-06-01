@@ -124,7 +124,7 @@
                                 </constraints>
                             </view>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="Yzr-Sn-dhk">
-                                <rect key="frame" x="0.0" y="208" width="600" height="348"/>
+                                <rect key="frame" x="0.0" y="207" width="600" height="348"/>
                                 <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="plV-St-M7L">
                                     <size key="itemSize" width="140" height="119"/>
@@ -133,7 +133,7 @@
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="I" id="oHA-zW-lBe" userLabel="Cell" customClass="PhotoCollectionViewCell" customModule="Virtual_Tourist">
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="Photo" id="oHA-zW-lBe" userLabel="Cell" customClass="PhotoCollectionViewCell" customModule="Virtual_Tourist">
                                         <rect key="frame" x="0.0" y="0.0" width="140" height="119"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">

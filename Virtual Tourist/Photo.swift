@@ -35,7 +35,7 @@ class Photo : NSManagedObject {
         
         // Dictionary
         photoURL = dictionary[Keys.PhotoURL] as? String
-        id = (dictionary[Keys.ID] as? Int)!
+        id =  dictionary[Keys.ID] as! Int
         title = dictionary[Keys.Title] as? String
         
     }

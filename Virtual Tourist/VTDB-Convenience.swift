@@ -54,18 +54,18 @@ extension VTDB {
                             CoreDataStackManager.sharedInstance().saveContext()
                         }
                             
-                        var results : [[String: AnyObject]] = [[:]]
+                        var results = [AnyObject]()
                         
                         if let photoArray = photos["photo"] as? [[String: AnyObject]] {
                             for photo in photoArray {
                                 var photoDict : [String:AnyObject] = [:]
                                 photoDict["photo_url"]  = photo["url_m"] as! String
-                                photoDict["id"] = photo["id"] as! Int
+                                photoDict["id"] = photo["id"]?.integerValue
                                 photoDict["title"] = photo["title"] as! String
                                 results.append(photoDict)
                             }
                             
-                            completionHandler(result : photos, error: nil)
+                            completionHandler(result : results, error: nil)
                             
                         } else {
                             print("Cannot find key 'photo' in \(result)")

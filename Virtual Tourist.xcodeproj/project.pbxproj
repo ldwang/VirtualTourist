@@ -11,7 +11,6 @@
 		271671A61CE8CFED00E6FA97 /* CoreDataStackManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 271671A51CE8CFED00E6FA97 /* CoreDataStackManager.swift */; };
 		271671A91CE8D1D100E6FA97 /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 271671A71CE8D1D100E6FA97 /* Model.xcdatamodeld */; };
 		27BCDB751CFB88E300FE9FF0 /* VTDB-Convenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27BCDB741CFB88E300FE9FF0 /* VTDB-Convenience.swift */; };
-		EFCB38F11CFE2FFF00BF1605 /* Virtual Tourist in Resources */ = {isa = PBXBuildFile; fileRef = EFCB38F01CFE2FFF00BF1605 /* Virtual Tourist */; };
 		EFCB38F41CFE307F00BF1605 /* PhotoCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFCB38F21CFE307F00BF1605 /* PhotoCollectionViewCell.swift */; };
 		EFCB38F51CFE307F00BF1605 /* PhotoCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFCB38F31CFE307F00BF1605 /* PhotoCollectionViewController.swift */; };
 		EFDBD1B61CCDD0690060DAE4 /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFDBD1B51CCDD0690060DAE4 /* Config.swift */; };
@@ -50,7 +49,6 @@
 		271671A51CE8CFED00E6FA97 /* CoreDataStackManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataStackManager.swift; sourceTree = "<group>"; };
 		271671A81CE8D1D100E6FA97 /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
 		27BCDB741CFB88E300FE9FF0 /* VTDB-Convenience.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "VTDB-Convenience.swift"; sourceTree = "<group>"; };
-		EFCB38F01CFE2FFF00BF1605 /* Virtual Tourist */ = {isa = PBXFileReference; lastKnownFileType = folder; name = "Virtual Tourist"; sourceTree = "<group>"; };
 		EFCB38F21CFE307F00BF1605 /* PhotoCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoCollectionViewCell.swift; sourceTree = "<group>"; };
 		EFCB38F31CFE307F00BF1605 /* PhotoCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoCollectionViewController.swift; sourceTree = "<group>"; };
 		EFDBD1B51CCDD0690060DAE4 /* Config.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
@@ -127,7 +125,6 @@
 				EFE0BCA61CC44A890088E964 /* TravelLocationsMapViewController.swift */,
 				EFCB38F21CFE307F00BF1605 /* PhotoCollectionViewCell.swift */,
 				EFCB38F31CFE307F00BF1605 /* PhotoCollectionViewController.swift */,
-				EFCB38F01CFE2FFF00BF1605 /* Virtual Tourist */,
 				EFE0BCA81CC44A890088E964 /* Main.storyboard */,
 				EFE0BCAE1CC44A890088E964 /* Assets.xcassets */,
 				EFE0BCB01CC44A890088E964 /* LaunchScreen.storyboard */,
@@ -273,7 +270,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EFCB38F11CFE2FFF00BF1605 /* Virtual Tourist in Resources */,
 				EFE0BCB21CC44A890088E964 /* LaunchScreen.storyboard in Resources */,
 				EFE0BCAF1CC44A890088E964 /* Assets.xcassets in Resources */,
 				EFE0BCAA1CC44A890088E964 /* Main.storyboard in Resources */,

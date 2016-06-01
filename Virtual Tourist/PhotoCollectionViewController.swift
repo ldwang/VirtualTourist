@@ -21,8 +21,6 @@ class PhotoCollectionViewController: UIViewController, MKMapViewDelegate,  UICol
     
     var pin : Pin!
     
-    var photoURLArray : [String] = []
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.'
@@ -65,7 +63,21 @@ class PhotoCollectionViewController: UIViewController, MKMapViewDelegate,  UICol
                 if let error = error {
                     print(error)
                 } else {
-                    print(result)
+                    if let photoArray = result as? [[String: AnyObject]] {
+                        //print(photoArray)
+                        let _ = photoArray.map() { (dictionary: [String : AnyObject]) -> Photo in
+                            let photo = Photo(dictionary: dictionary, context: self.sharedContext)
+                            photo.pin = self.pin
+                            return photo
+                        }
+                    }
+                    
+                    CoreDataStackManager.sharedInstance().saveContext()
+                    
+                    dispatch_async(dispatch_get_main_queue()) {
+                        self.collectionView.reloadData()
+                    }
+                    
                 }
             }
         }
@@ -112,11 +124,58 @@ class PhotoCollectionViewController: UIViewController, MKMapViewDelegate,  UICol
     }
     
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCellWithReuseIdentifier("Photo", forIndexPath: indexPath)
         
-        //configureCell(cell)
+        let photo = fetchedResultsController.objectAtIndexPath(indexPath) as! Photo
+
+        
+        let cell = collectionView.dequeueReusableCellWithReuseIdentifier("Photo", forIndexPath: indexPath) as! PhotoCollectionViewCell
+        
+        configureCell(cell, photo: photo)
         
         return cell
+    }
+    
+    
+    // MARK: - Configure Cell
+    func configureCell(cell: PhotoCollectionViewCell, photo: Photo) {
+        
+        var image = UIImage(named: "PhotoPlaceHolder")
+    
+        cell.imageView!.image = nil
+        
+        //Set the Photo Image
+        if photo.photoURL == nil || photo.photoURL == "" {
+            image = UIImage(named: "noImage")
+        } else if photo.image != nil {
+            image = photo.image
+        } else {
+            VTDB.sharedInstance().taskForGetImage(photo.photoURL!) { imageData, error in
+                
+                if let error = error {
+                    print("Flickr Photo Download Error:\(error.localizedDescription)")
+                }
+                
+                if let data=imageData {
+                    //Create the image
+                    
+                    let downloadImage = UIImage(data: data)
+                    
+                    //Update the model, so that the information get cached
+                    photo.image = downloadImage
+                    
+                    
+                    //Update the cell later, on the main thread
+                    dispatch_async(dispatch_get_main_queue()) {
+                        cell.imageView!.image = downloadImage
+                    }
+                }
+            }
+            
+            
+        }
+        
+        cell.imageView!.image = image
+        
     }
 
 }
