@@ -117,6 +117,7 @@ class PhotoCollectionViewController: UIViewController, MKMapViewDelegate,  UICol
 
     
     
+    //MARK: Collection View
     
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         let sectionInfo = self.fetchedResultsController.sections![section]
@@ -135,6 +136,13 @@ class PhotoCollectionViewController: UIViewController, MKMapViewDelegate,  UICol
         return cell
     }
     
+    func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+        <#code#>
+    }
+    
+    func collectionView(collectionView: UICollectionView, didDeselectItemAtIndexPath indexPath: NSIndexPath) {
+        <#code#>
+    }
     
     // MARK: - Configure Cell
     func configureCell(cell: PhotoCollectionViewCell, photo: Photo) {

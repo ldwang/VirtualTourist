@@ -51,6 +51,9 @@ class Photo : NSManagedObject {
         }
     }
 
+    override func prepareForDeletion() {
+        VTDB.Caches.imageCache.removeImage(photoURL!)
+    }
     
     
 }
