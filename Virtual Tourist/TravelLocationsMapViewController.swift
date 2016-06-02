@@ -47,7 +47,6 @@ class TravelLocationsMapViewController: UIViewController, MKMapViewDelegate, NSF
         
         let pins = fetchedResultsController.fetchedObjects! as? [Pin]
         
-        print(pins)
         
         for pin in pins! {
             
@@ -152,8 +151,6 @@ class TravelLocationsMapViewController: UIViewController, MKMapViewDelegate, NSF
             let vc = self.storyboard!.instantiateViewControllerWithIdentifier("PhotoCollectionViewController") as! PhotoCollectionViewController
             
             vc.pin = selectedPin
-            
-            print(vc.pin)
             
             self.presentViewController(vc, animated: true, completion: nil)
         }
