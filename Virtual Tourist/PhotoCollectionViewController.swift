@@ -147,7 +147,7 @@ class PhotoCollectionViewController: UIViewController, MKMapViewDelegate,  UICol
     //Get Photos Array from Flickr and Save to CoreData
     
     func getPhotos(pin: Pin) {
-        VTDB.sharedInstance().getPhotosByPin(pin) { result, error in
+        VTDB.sharedInstance.getPhotosByPin(pin) { result, error in
             if let error = error {
                 print(error)
         } else {
@@ -225,7 +225,7 @@ class PhotoCollectionViewController: UIViewController, MKMapViewDelegate,  UICol
         } else if photo.image != nil {
             image = photo.image
         } else {
-            VTDB.sharedInstance().taskForGetImage(photo.photoURL!) { imageData, error in
+            VTDB.sharedInstance.taskForGetImage(photo.photoURL!) { imageData, error in
                 
                 if let error = error {
                     print("Flickr Photo Download Error:\(error.localizedDescription)")

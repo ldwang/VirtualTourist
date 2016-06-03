@@ -152,6 +152,8 @@ class TravelLocationsMapViewController: UIViewController, MKMapViewDelegate, NSF
             
             vc.pin = selectedPin
             
+            mapView.deselectAnnotation(view.annotation!, animated: false)
+            
             self.presentViewController(vc, animated: true, completion: nil)
         }
         

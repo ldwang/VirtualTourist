@@ -166,14 +166,16 @@ class VTDB : NSObject {
     
     // MARK: - Shared Instance
     
-    class func sharedInstance() -> VTDB {
-        
-        struct Singleton {
-            static var sharedInstance = VTDB()
-        }
-        
-        return Singleton.sharedInstance
-    }
+   static let sharedInstance = VTDB()
+    
+//    class func sharedInstance() -> VTDB {
+//        
+//        struct Singleton {
+//            static var sharedInstance = VTDB()
+//        }
+//        
+//        return Singleton.sharedInstance
+//    }
     
     
     //MARK: Shared Image Cache
