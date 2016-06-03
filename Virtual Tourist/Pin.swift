@@ -16,7 +16,6 @@ class Pin : NSManagedObject {
     @NSManaged var latitude: Double
     @NSManaged var longitude: Double
     @NSManaged var totalPages : Int
-    @NSManaged var currentPage : Int
     @NSManaged var photos: [Photo]?
     
     override init(entity: NSEntityDescription, insertIntoManagedObjectContext context: NSManagedObjectContext?) {
@@ -32,8 +31,7 @@ class Pin : NSManagedObject {
         
         self.latitude = latitude
         self.longitude = longitude
-        self.totalPages = 1
-        self.currentPage = 1
+        self.totalPages = 0
         
     }
     

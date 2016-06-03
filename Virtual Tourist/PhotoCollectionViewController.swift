@@ -63,7 +63,7 @@ class PhotoCollectionViewController: UIViewController, MKMapViewDelegate,  UICol
         super.viewWillAppear(animated)
         
         if pin.photos!.isEmpty {
-                getPhotos(pin)
+            getPhotos(pin)
         }
     }
     
@@ -73,6 +73,8 @@ class PhotoCollectionViewController: UIViewController, MKMapViewDelegate,  UICol
     }
     
     @IBAction func BottomButtonTouch(sender: AnyObject) {
+        
+        print("isRemovingImage" + isRemovingImage.description)
         
         if isRemovingImage {
             for index in selectedImagesToRemove {
@@ -99,13 +101,13 @@ class PhotoCollectionViewController: UIViewController, MKMapViewDelegate,  UICol
             for photo in fetchedResultsController.fetchedObjects! {
                 self.sharedContext.deleteObject(photo as! NSManagedObject)
             }
+            
+            
             CoreDataStackManager.sharedInstance().saveContext()
             
-            if pin.currentPage < pin.totalPages {
-                pin.currentPage = pin.currentPage + 1
-            } else {
-                pin.currentPage = 1
-            }
+            
+            //print("Print Fetched ResultsController Objects counts:")
+            //print(fetchedResultsController.fetchedObjects)
             
             getPhotos(pin)
             
@@ -150,6 +152,8 @@ class PhotoCollectionViewController: UIViewController, MKMapViewDelegate,  UICol
                 print(error)
         } else {
                 if let photoArray = result as? [[String: AnyObject]] {
+                    
+                    //print(photoArray)
         
                     let _ = photoArray.map() { (dictionary: [String : AnyObject]) -> Photo in
                         let photo = Photo(dictionary: dictionary, context: self.sharedContext)
@@ -157,18 +161,17 @@ class PhotoCollectionViewController: UIViewController, MKMapViewDelegate,  UICol
                         return photo
                     }
                 }
-        
+                
                 CoreDataStackManager.sharedInstance().saveContext()
                 
-                // Invoke fetchedResultsController.performFetch(nil) here
                 do {
                     try self.fetchedResultsController.performFetch()
                 } catch {}
+
         
                 dispatch_async(dispatch_get_main_queue()) {
                     self.collectionView.reloadData()
                 }
-        
             }
         }
 
@@ -197,7 +200,7 @@ class PhotoCollectionViewController: UIViewController, MKMapViewDelegate,  UICol
         let cell = collectionView.cellForItemAtIndexPath(indexPath)
         cell!.alpha = 0.5
         self.selectedImagesToRemove.append(indexPath)
-        print(selectedImagesToRemove)
+        //print(selectedImagesToRemove)
         updateBottomButton()
     }
     
