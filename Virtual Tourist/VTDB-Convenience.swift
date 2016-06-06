@@ -14,7 +14,7 @@ import CoreData
 
 extension VTDB {
     
-    // MARK: - Core Data Convenience. This will be useful for fetching. And for adding and saving objects as well.
+   // MARK: - Core Data Convenience. This will be useful for fetching. And for adding and saving objects as well.
     
     var sharedContext: NSManagedObjectContext {
         return CoreDataStackManager.sharedInstance().managedObjectContext
@@ -23,7 +23,7 @@ extension VTDB {
 
     //MARK: Get Flickr Image URLs by Pin
     
-    func getPhotosByPin(pin: Pin, completionHandler: (result : AnyObject!, error: NSError?) -> Void ) {
+    func getPhotosByPin(pin: Pin,  completionHandler: (result : AnyObject!, error: NSError?) -> Void ) {
         
         var page = 1
         
@@ -45,8 +45,6 @@ extension VTDB {
             "nojsoncallback": SearchOptions.NoJSONCallBack
         ]
         
-
-        print(parameters)
         
         taskForGetMethod(parameters as! [String : AnyObject]) { result, error in
             
@@ -57,14 +55,17 @@ extension VTDB {
 
                 if let photos = result["photos"] as? [String: AnyObject] {
                     if let totalPages = photos["pages"] as? Int {
+                        //print("is TaskForGetMethod main thread?" + String(NSThread.isMainThread()))
                         
-                        pin.totalPages = totalPages
-                        
-                        dispatch_async(dispatch_get_main_queue()) {
+                        self.sharedContext.performBlock {
+                            pin.totalPages = totalPages
                             CoreDataStackManager.sharedInstance().saveContext()
                         }
+//                        dispatch_async(dispatch_get_main_queue()) {
+//                            pin.totalPages = totalPages
+//                            CoreDataStackManager.sharedInstance().saveContext()
+//                        }
                         
-                            
                         var results = [AnyObject]()
                         
                         if let photoArray = photos["photo"] as? [[String: AnyObject]] {
@@ -74,7 +75,7 @@ extension VTDB {
                                 photoDict["id"] = photo["id"]?.integerValue
                                 photoDict["title"] = photo["title"] as! String
                                 results.append(photoDict)
-                                print(photoDict["photo_url"])
+                                
                             }
                             
                             completionHandler(result : results, error: nil)

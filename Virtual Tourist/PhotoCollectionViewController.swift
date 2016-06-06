@@ -74,7 +74,7 @@ class PhotoCollectionViewController: UIViewController, MKMapViewDelegate,  UICol
     
     @IBAction func BottomButtonTouch(sender: AnyObject) {
         
-        print("isRemovingImage" + isRemovingImage.description)
+        //print("isRemovingImage" + isRemovingImage.description)
         
         if isRemovingImage {
             for index in selectedImagesToRemove {
@@ -121,6 +121,7 @@ class PhotoCollectionViewController: UIViewController, MKMapViewDelegate,  UICol
         return CoreDataStackManager.sharedInstance().managedObjectContext
     }
     
+    let moc = NSManagedObjectContext(concurrencyType: .PrivateQueueConcurrencyType)
     
     
     // Add the lazy fetchedResultsController property. See the reference sheet in the lesson if you
@@ -147,6 +148,7 @@ class PhotoCollectionViewController: UIViewController, MKMapViewDelegate,  UICol
     //Get Photos Array from Flickr and Save to CoreData
     
     func getPhotos(pin: Pin) {
+        
         VTDB.sharedInstance.getPhotosByPin(pin) { result, error in
             if let error = error {
                 print(error)
@@ -200,7 +202,6 @@ class PhotoCollectionViewController: UIViewController, MKMapViewDelegate,  UICol
         let cell = collectionView.cellForItemAtIndexPath(indexPath)
         cell!.alpha = 0.5
         self.selectedImagesToRemove.append(indexPath)
-        //print(selectedImagesToRemove)
         updateBottomButton()
     }
     
@@ -208,7 +209,6 @@ class PhotoCollectionViewController: UIViewController, MKMapViewDelegate,  UICol
         let cell = collectionView.cellForItemAtIndexPath(indexPath)
         cell!.alpha = 1.0
         self.selectedImagesToRemove.removeAtIndex(selectedImagesToRemove.indexOf(indexPath)!)
-        print(selectedImagesToRemove)
         updateBottomButton()
     }
     
@@ -225,6 +225,10 @@ class PhotoCollectionViewController: UIViewController, MKMapViewDelegate,  UICol
         } else if photo.image != nil {
             image = photo.image
         } else {
+            
+            cell.activityIndicator.hidden = false
+            cell.activityIndicator.startAnimating()
+            
             VTDB.sharedInstance.taskForGetImage(photo.photoURL!) { imageData, error in
                 
                 if let error = error {
@@ -244,6 +248,8 @@ class PhotoCollectionViewController: UIViewController, MKMapViewDelegate,  UICol
                     dispatch_async(dispatch_get_main_queue()) {
                         cell.imageView!.image = downloadImage
                         cell.alpha = 1.0
+                        cell.activityIndicator.stopAnimating()
+                        cell.activityIndicator.hidden = true
                     }
                 }
             }

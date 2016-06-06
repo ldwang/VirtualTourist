@@ -72,7 +72,6 @@ class TravelLocationsMapViewController: UIViewController, MKMapViewDelegate, NSF
     }
     
     
-    
     // Add the lazy fetchedResultsController property. See the reference sheet in the lesson if you
     // want additional help creating this property.
     
