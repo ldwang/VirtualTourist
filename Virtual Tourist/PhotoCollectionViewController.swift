@@ -215,7 +215,7 @@ class PhotoCollectionViewController: UIViewController, MKMapViewDelegate,  UICol
     // MARK: - Configure Cell
     func configureCell(cell: PhotoCollectionViewCell, photo: Photo) {
         
-        var image = UIImage(named: "PhotoPlaceHolder")
+        var image = UIImage(named: "placeholder")
     
         cell.imageView!.image = nil
         
